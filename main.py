@@ -1,4 +1,5 @@
 from fastapi import FastAPI, status, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from service import NumberService
@@ -9,13 +10,26 @@ app = FastAPI()
 
 number_service = NumberService()
 
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:80",
+    "http://localhost:8000",
+    "https://number-classification-39yf.onrender.com/",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        # content=jsonable_encoder({"detail": exc.errors(),  # optionally include the errors
-        #         "body": exc.body,
-        #          "custom msg": {"Your error message"}}),
         content={
                 "number": "alphabet",
                 "error": True
