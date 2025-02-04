@@ -58,6 +58,7 @@ Example - http://127.0.0.1:8000/api/classify-number?number=250
 
 ### API Documentation
 1. Endpoint URL - **GET** http://127.0.0.1:8000/api/classify-number?number=int
++ Example - http://127.0.0.1:8000/api/classify-number?number=300
 2. Request Body - None
 3. Response Body - JSON
    
