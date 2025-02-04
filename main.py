@@ -68,13 +68,6 @@ async def number_class(number: int):
             },
             status_code=status.HTTP_200_OK
     )
-    except asyncio.exceptions.CancelledError:
-        return JSONResponse(
-            content={
-                "number": "alphabet",
-                "error": True
-            },
-            status_code=status.HTTP_400_BAD_REQUEST
-        )
+
     
     
