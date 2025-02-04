@@ -68,6 +68,13 @@ async def number_class(number: int):
             },
             status_code=status.HTTP_200_OK
     )
-
+    except Exception:
+        return JSONResponse(
+            content={
+                "msg": "Something went wrong",
+                "error": True
+            },
+            status_code=status.HTTP_400_BAD_REQUEST
+        )
     
     
