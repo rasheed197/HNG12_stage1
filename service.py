@@ -3,7 +3,7 @@ import httpx
 
 class NumberService: 
     async def get_is_prime(self, number):
-        if number == 0 or number == 1:
+        if number < 0 or number == 0 or number == 1:
             return False
         for i in range(2, number):
             if (number % i) == 0:
@@ -12,6 +12,8 @@ class NumberService:
         return True
 
     async def get_is_perfect(self, number):
+        if number < 0:
+            return False
         sum = 0
         for i in range(1, number):
             if number % i == 0:
@@ -19,6 +21,8 @@ class NumberService:
         return number == sum
 
     async def get_is_armstrong(self, number):
+        if number < 0:
+            return False
         order = len(str(number))
         sum = 0
         temp = number
@@ -29,6 +33,7 @@ class NumberService:
         return sum == number
 
     async def get_digit_sum(self, number):
+        number = abs(number)
         return sum(list(map(int, str(number))))
 
     async def get_is_odd(self, number):
