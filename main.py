@@ -25,16 +25,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content={
-                "number": "alphabet",
-                "error": True
-            },
-    )
     
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -45,9 +35,9 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         #         "body": exc.body,
         #          "custom msg": {"Your error message"}}),
         content={
-                "number": query_parameter,
-                "error": True
-            },
+            "number": query_parameter,
+            "error": True
+        },
     )
 
 @app.get('/api/classify-number')
