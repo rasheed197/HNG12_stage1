@@ -38,13 +38,14 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    query_parameter = request.query_params._dict["number"]
     return JSONResponse(
         status_code=status.HTTP_400_BAD_REQUEST,
         # content=jsonable_encoder({"detail": exc.errors(),  # optionally include the errors
         #         "body": exc.body,
         #          "custom msg": {"Your error message"}}),
         content={
-                "number": "alphabet",
+                "number": query_parameter,
                 "error": True
             },
     )
@@ -71,7 +72,7 @@ async def number_class(number: int):
     except Exception:
         return JSONResponse(
             content={
-                "msg": "Something went wrong",
+                "msg": "something went wrong",
                 "error": True
             },
             status_code=status.HTTP_400_BAD_REQUEST
